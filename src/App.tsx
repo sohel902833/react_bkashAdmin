@@ -9,6 +9,7 @@ import MainLayoutContainer from "./pages/main/MainLayoutContainer";
 import MainAccount from "./pages/main-account/MainAccount";
 import UserList from "./pages/users/UserList";
 import SingleUserInfoPage from "./pages/users/SingleUserInfo";
+import Settings from "./pages/settings/Settings";
 const App = () => {
   return (
     <Router>
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/account-balance" element={<MainAccount />} />
           <Route path="/users" element={<UserList />} />
           <Route path="/user/:userId" element={<SingleUserInfoPage />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
     </Router>

@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { IUser } from "../../feature/auth/auth.types";
+import { IUserType } from "../../feature/user/user.types";
 import { useGetAllUserQuery } from "../../feature/user/userApi";
 import usePaginationInfo from "../../hooks/usePaginationInfo";
 import PaginationController from "../util/PaginationController";
+import AddBalanceToUserAccountModal from "./AddBalanceToUserAccountModal";
 const PER_PAGE = 5;
 const UserListTable = () => {
   const { isLoading, data } = useGetAllUserQuery(null);
@@ -9,6 +13,16 @@ const UserListTable = () => {
     data ? data?.length : 0,
     PER_PAGE
   );
+  const [addBalanceModal, setAddBalanceModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<IUserType | null>(null);
+  const navigate = useNavigate();
+  const handleAddBalance = (user: IUserType) => {
+    setSelectedUser(user);
+    setAddBalanceModal(true);
+  };
+  const handleNavigateToUserPage = (userId: string) => {
+    navigate(`/user/${userId}`);
+  };
 
   return (
     <div className="overflow-x-auto w-full">
@@ -69,7 +83,18 @@ const UserListTable = () => {
                 <td>{new Date(item?.createdAt).toLocaleString()}</td>
                 <th>
                   <div className="flex items-center gap-2">
-                    <button className="btn btn-ghost btn-xs">details</button>
+                    <button
+                      onClick={() => handleAddBalance(item)}
+                      className="btn btn-primary btn-xs"
+                    >
+                      Add Balance
+                    </button>
+                    <button
+                      onClick={() => handleNavigateToUserPage(item?._id)}
+                      className="btn btn-ghost btn-xs"
+                    >
+                      details
+                    </button>
                   </div>
                 </th>
               </tr>
@@ -95,6 +120,11 @@ const UserListTable = () => {
       </div>
       <br />
       <br />
+      <AddBalanceToUserAccountModal
+        email={selectedUser?.email as string}
+        open={addBalanceModal}
+        setOpen={setAddBalanceModal}
+      />
     </div>
   );
 };

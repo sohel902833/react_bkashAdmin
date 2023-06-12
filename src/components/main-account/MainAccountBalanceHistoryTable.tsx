@@ -34,49 +34,51 @@ const MainAccountBalanceHistoryTable = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.transections
-            ?.slice(
-              (currentPage - 1) * PER_PAGE,
-              (currentPage - 1) * PER_PAGE + PER_PAGE
-            )
-            ?.map((item) => {
-              const senderUser = item.transection.senderUser;
-              const receiverUser = item.transection.receiverUser;
-              return (
-                <tr key={item.transection._id}>
-                  <th>
-                    <label>
-                      <input type="checkbox" className="checkbox" />
-                    </label>
-                  </th>
-                  <td>
-                    {senderUser.firstName} {senderUser.lastName}
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
-                      {senderUser.email}
-                    </span>{" "}
-                    <span className="badge badge-ghost badge-sm">
-                      ({item.transection.senderUserType})
-                    </span>
-                  </td>
-                  <td>
-                    {receiverUser.firstName} {receiverUser.lastName}
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
-                      {receiverUser.email}
-                    </span>{" "}
-                    <span className="badge badge-ghost badge-sm">
-                      ({item.transection.receiverUserType})
-                    </span>
-                  </td>
-                  <td>{item.transection.amount}</td>
-                  <td>{item.transection.transectionType}</td>
-                  <th>
-                    <button className="btn btn-ghost btn-xs">Action</button>
-                  </th>
-                </tr>
-              );
-            })}
+          {data &&
+            data?.transections?.length > 0 &&
+            data?.transections
+              ?.slice(
+                (currentPage - 1) * PER_PAGE,
+                (currentPage - 1) * PER_PAGE + PER_PAGE
+              )
+              ?.map((item) => {
+                const senderUser = item?.transection?.senderUser;
+                const receiverUser = item?.transection?.receiverUser;
+                return (
+                  <tr key={item.transection?._id}>
+                    <th>
+                      <label>
+                        <input type="checkbox" className="checkbox" />
+                      </label>
+                    </th>
+                    <td>
+                      {senderUser?.firstName} {senderUser?.lastName}
+                      <br />
+                      <span className="badge badge-ghost badge-sm">
+                        {senderUser?.email}
+                      </span>{" "}
+                      <span className="badge badge-ghost badge-sm">
+                        ({item.transection?.senderUserType})
+                      </span>
+                    </td>
+                    <td>
+                      {receiverUser?.firstName} {receiverUser?.lastName}
+                      <br />
+                      <span className="badge badge-ghost badge-sm">
+                        {receiverUser?.email}
+                      </span>{" "}
+                      <span className="badge badge-ghost badge-sm">
+                        ({item.transection?.receiverUserType})
+                      </span>
+                    </td>
+                    <td>{item.transection?.amount}</td>
+                    <td>{item.transection?.transectionType}</td>
+                    <th>
+                      <button className="btn btn-ghost btn-xs">Action</button>
+                    </th>
+                  </tr>
+                );
+              })}
         </tbody>
 
         <tfoot>

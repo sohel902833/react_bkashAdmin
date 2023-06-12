@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { IAgent } from "../../feature/agents/agents.types";
 import { useGetAllAgentsQuery } from "../../feature/agents/agentsApi";
 import usePaginationInfo from "../../hooks/usePaginationInfo";
@@ -7,6 +8,7 @@ import AddBalanceToAgentAccountModal from "./AddBalanceToAgentAccountModal";
 const PER_PAGE = 5;
 
 const AgentListTable = () => {
+  const navigate = useNavigate();
   const { isLoading, data } = useGetAllAgentsQuery(null);
   const [addBalanceModal, setAddBalanceModal] = useState(false);
   const [selectedAgent, setSelectedAgent] = useState<IAgent | null>(null);
@@ -18,6 +20,9 @@ const AgentListTable = () => {
   const handleAddBalance = (agent: IAgent) => {
     setSelectedAgent(agent);
     setAddBalanceModal(true);
+  };
+  const handleNavigateToUserPage = (userId: string) => {
+    navigate(`/user/${userId}`);
   };
 
   return (
@@ -79,12 +84,17 @@ const AgentListTable = () => {
                 <td>{new Date(item?.createdAt).toLocaleString()}</td>
                 <th>
                   <div className="flex items-center gap-2">
-                    <button className="btn btn-ghost btn-xs">details</button>
                     <button
                       onClick={() => handleAddBalance(item)}
                       className="btn btn-primary btn-xs"
                     >
                       Add Balance
+                    </button>
+                    <button
+                      onClick={() => handleNavigateToUserPage(item._id)}
+                      className="btn btn-ghost btn-xs"
+                    >
+                      details
                     </button>
                   </div>
                 </th>

@@ -4,19 +4,19 @@ import {
   Area,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { IChartDataItem } from "../../types/chart.types";
+import CustomFilter from "../dashboard/CustomFilter";
 import CustomTooltip from "./CustomTooltip";
 
 interface Props {
   title: string;
-  value: IChartDataItem[];
+  value: any[];
   height?: number;
   valueKeyName?: string;
   titleKeyName?: string;
+  handleDateChange?: (date: any, filter: string) => void;
 }
 
 const CustomAreaChart: React.FC<Props> = ({
@@ -25,14 +25,19 @@ const CustomAreaChart: React.FC<Props> = ({
   titleKeyName = "name",
   valueKeyName = "value",
   value,
+  handleDateChange,
 }) => {
   const fillColor = "hsl(var(--pc))";
   const lineColor = "hsl(var(--p))";
   return (
     <div style={{ width: "100%" }}>
-      <h2 className="my-2 text-xl border-b-2 border-primary w-fit pr-2 text-left">
-        {title}
-      </h2>
+      <div className="flex justify-between items-center">
+        <h2 className="my-2 text-xl border-b-2 border-primary w-fit pr-2 text-left">
+          {title}
+        </h2>
+        <CustomFilter onDateChange={handleDateChange} />
+      </div>
+
       <ResponsiveContainer width="100%" height={height}>
         <AreaChart
           width={500}

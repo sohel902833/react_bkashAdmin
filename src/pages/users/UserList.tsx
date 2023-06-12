@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CustomBarChart from "../../components/chart/CustomBarChart";
+import DashboardUserRegistrationHistoryChart from "../../components/dashboard/DashboardUserRegistrationHistoryCharts";
 import AppHeader from "../../components/layout/AppHeader";
 import UserListTable from "../../components/users/UserListTable";
 import { useGetAllUserQuery } from "../../feature/user/userApi";
@@ -43,9 +44,10 @@ const UserList = () => {
         {isTableView ? (
           <UserListTable />
         ) : (
-          <CustomBarChart
+          <DashboardUserRegistrationHistoryChart
+            userType="user"
             title="User Signup History"
-            value={chartData}
+            barChart={true}
             height={400}
           />
         )}

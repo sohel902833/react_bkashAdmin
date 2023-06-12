@@ -1,17 +1,29 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import CustomBarChart from "../../components/chart/CustomBarChart";
 import AppHeader from "../../components/layout/AppHeader";
-import UserListTable from "../../components/users/UserListTable";
+import UserTransectionsTable from "../../components/users/UserTransectionsTable";
+import {
+  useGetUserTotalTransectionsQuery,
+  useGetUserWithTransectionQuery,
+} from "../../feature/user/userApi";
 import { chartData } from "../main/data";
 
 const SingleUserInfoPage = () => {
+  const { userId } = useParams();
+  const { isLoading, data } = useGetUserWithTransectionQuery(userId as string);
+  const { data: totalTransection } = useGetUserTotalTransectionsQuery(
+    userId as string
+  );
   const [transectionType, setTransectionType] = useState<
     "all" | "cashin" | "cashout"
-  >("all");
+  >("cashin");
 
   const handleChangeTransectionType = (type: "all" | "cashin" | "cashout") => {
     setTransectionType(type);
   };
+
+  const { user, transections } = data || {};
 
   return (
     <div className="flex flex-col gap-1">
@@ -21,15 +33,21 @@ const SingleUserInfoPage = () => {
           <div className="basis-[250px] max-w-[400px] grow bg-primary-content rounded-sm p-4 flex flex-col">
             <div className="flex flex-col items-center justify-center">
               <h3 className="text-primary font-bold font-mono text-3xl">
-                5000
+                {user?.balance}
               </h3>
-              <p>Total Users</p>
+              <p>Total Balance</p>
             </div>
 
-            <p>User Info: </p>
-            <h2 className="text-xl my-3">Name: Md Sohrab Hossain Sohel</h2>
-            <p>Birth Date: 05-03-2002</p>
-            <p>Nid: 05-03-2002</p>
+            <p>User Info: {user?.userType}</p>
+            <h2 className="text-xl my-3">
+              Name: {user?.firstName} {user?.lastName}
+            </h2>
+            <h2 className="text-xl my-3">Phone: {user?.phone}</h2>
+            <p>
+              Birth Date:{" "}
+              {new Date(user?.birthdate as string).toLocaleDateString()}
+            </p>
+            <p>Nid: {user?.idNo}</p>
           </div>
         </div>
         <div className="btn-group mt-4">
@@ -58,9 +76,25 @@ const SingleUserInfoPage = () => {
         </div>
         <br />
         <br />
+        <div className="flex items-center gap-5">
+          <h1 className="text-primary">
+            Total Cash In:{" "}
+            <span className="font-bold text-2xl">
+              {totalTransection?.totalCashIn}
+            </span>
+          </h1>
+          <h1 className="text-primary">
+            Total Cash Out:{" "}
+            <span className="font-bold text-2xl">
+              {totalTransection?.totalCashOut}
+            </span>
+          </h1>
+        </div>
         <br />
         {transectionType === "cashin" ? (
-          <UserListTable />
+          <UserTransectionsTable
+            transections={transections ? transections : []}
+          />
         ) : (
           <CustomBarChart
             title="User Signup History"

@@ -10,7 +10,7 @@ export const agentsApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: [TagTypes.ALL_AGENT_LISTS],
+      invalidatesTags: [TagTypes.ALL_AGENT_LISTS, TagTypes.USER_REG_HISTORY],
     }),
     addBalanceToAgentAccount: builder.mutation({
       query: (data: { email: string; amount: string }) => ({

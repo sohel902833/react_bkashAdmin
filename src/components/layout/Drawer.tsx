@@ -14,6 +14,11 @@ const sidebarList = [
     name: "Users",
     route: "/users",
   },
+  {
+    id: 3,
+    name: "Settings",
+    route: "/settings",
+  },
 ];
 
 const Drawer = () => {

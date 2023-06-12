@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 import { useLoginMutation } from "../../feature/auth/authApi";
 const Login = () => {
   const [loginAdmin, { isLoading, data }] = useLoginMutation();
-  const [email, setEmail] = useState<string>("mdsohelranask6869@gmail.com");
-  const [password, setPassword] = useState<string>("01740");
+  const [email, setEmail] = useState<string>("admin@gmail.com");
+  const [password, setPassword] = useState<string>("244739");
   const [errors, setErrors] = useState<any>({});
   const navigate = useNavigate();
   const handleSubmit = async () => {

@@ -61,3 +61,48 @@ export const chartData: IChartDataItem[] = [
     value: 2000,
   },
 ];
+
+export const dashboardInfo = {
+  mainAccountBalance: {
+    id: 1,
+    name: "Total Balance",
+    value: 0,
+    path: "/account-balance",
+  },
+  totalAdminCashIn: {
+    id: 2,
+    name: "Total Main Account Cashin",
+    value: 0,
+  },
+  totalAgentBalance: {
+    id: 4,
+    name: "Agent Account Balance",
+    value: 0,
+    path: "/agent-list",
+  },
+  totalUserBalance: {
+    id: 5,
+    name: "User Account Balance",
+    value: 0,
+    path: "/users",
+  },
+  totalAgentCount: {
+    id: 7,
+    name: "Total Agents",
+    value: 0,
+    path: "/agent-list",
+  },
+
+  totalUser: {
+    id: 6,
+    name: "Total Users",
+    value: 0,
+    path: "/users",
+  },
+
+  totalAdminCount: {
+    id: 8,
+    name: "Total Admins",
+    value: 0,
+  },
+};

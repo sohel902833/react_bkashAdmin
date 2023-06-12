@@ -2,6 +2,7 @@ import { useState } from "react";
 import AgentListTable from "../../components/agents/AgentListTable";
 import CreateAgentModal from "../../components/agents/CreateAgentModal";
 import CustomBarChart from "../../components/chart/CustomBarChart";
+import DashboardUserRegistrationHistoryChart from "../../components/dashboard/DashboardUserRegistrationHistoryCharts";
 import AppHeader from "../../components/layout/AppHeader";
 import { useGetAllAgentsQuery } from "../../feature/agents/agentsApi";
 import { chartData } from "../main/data";
@@ -13,6 +14,7 @@ const AgentList = () => {
   const handleSetIsTableView = () => {
     setIsTableView((prev) => !prev);
   };
+
   return (
     <div className="flex flex-col gap-1">
       <AppHeader title="Agents" />
@@ -51,9 +53,10 @@ const AgentList = () => {
         {isTableView ? (
           <AgentListTable />
         ) : (
-          <CustomBarChart
-            title="Agent Create History"
-            value={chartData}
+          <DashboardUserRegistrationHistoryChart
+            userType="agent"
+            title="Agent Signup History"
+            barChart={true}
             height={400}
           />
         )}
